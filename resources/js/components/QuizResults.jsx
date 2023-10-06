@@ -21,26 +21,22 @@ class QuizResults extends Component {
   };
 
   handleSubmit = () => {
- 
     const dataToSend = {
       name: this.state.name,
       email: this.state.email,
       score: this.calculateScore(this.props.questions, this.props.userAnswers),
     };
-    
-    axios.post('/api/submit-score', dataToSend)
+
+    axios
+      .post('/api/submit-score', dataToSend)
       .then((response) => {
-        
         console.log('Score submitted successfully:', response.data);
         this.setState({ submitted: true });
       })
       .catch((error) => {
-        
         console.error('Error submitting score:', error);
       });
-    
 
-    
     this.setState({ submitted: true });
   };
 
@@ -58,19 +54,20 @@ class QuizResults extends Component {
           <p>Thank you for submitting your score!</p>
         ) : (
           <div>
-            <p>Submit your name and email address to save your score:</p>
-            <input
-              type="text"
-              placeholder="Name"
-              value={this.state.name}
-              onChange={this.handleNameChange}
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              value={this.state.email}
-              onChange={this.handleEmailChange}
-            />
+            <div className="input-group">
+              <input
+                type="text"
+                placeholder="Name"
+                value={this.state.name}
+                onChange={this.handleNameChange}
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                value={this.state.email}
+                onChange={this.handleEmailChange}
+              />
+            </div>
             <button onClick={this.handleSubmit}>Submit</button>
           </div>
         )}
@@ -89,7 +86,6 @@ class QuizResults extends Component {
   }
 
   getResultMessage(score, questions) {
-    
     if (score === questions.length) {
       return 'Great job!';
     } else if (score >= questions.length * 0.75) {

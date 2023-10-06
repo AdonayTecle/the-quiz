@@ -30,11 +30,12 @@ body {
 .quiz {
   margin: -44px 50px 0px;
   position: relative;
-  width: calc(100% - 100px);
+  width: 333px;
+  height:348px;
 }
 
 .quiz h1 {
-  color: #FAFAFA;
+  color: #afc630;
   font-weight: 600;
   font-size: 36px;
   text-transform: uppercase;
@@ -106,7 +107,7 @@ body {
   flex-direction: column;
   justify-content: center;
   position: absolute;
-  top: 44px;
+  top: 60px;
   left: 0px;
   background: #FAFAFA;
   width: 100%;
@@ -132,10 +133,18 @@ body {
   font-size: 20px;
 }
 
+.quiz-results input[type="text"],
+.quiz-results input[type="email"] {
+  border: 1px solid #ccc;
+  padding: 8px;
+  margin-bottom: 10px;
+}
 
-/* styles.css */
+.quiz-results button {
+  text-align: right;
+  margin-left: auto;
+}
 
-/* Add styles to move the navigation links to the top-left corner */
 .navbar {
   display: flex;
   justify-content: flex-start;
@@ -157,7 +166,6 @@ body {
   margin-right: 20px;
 }
 
-/* Center the main content */
 .container {
   display: flex;
   justify-content: center;
@@ -170,4 +178,8 @@ body {
   padding: 20px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
+}
+
+ul {
+  list-style: none;
 }
