@@ -20,6 +20,10 @@ Update the database env variables to your database info:
     DB_USERNAME=root
     DB_PASSWORD=
 
+then run the artisan migrate command:
+
+    php artisan migrate
+
 run the following command on a terminal and don't close the terminal:
 
     npm run build
