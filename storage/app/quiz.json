@@ -1,0 +1,91 @@
+{
+    "quiz_name": "The Quiz",
+    "questions": {
+        "question9": {
+            "sequence": 0,
+            "name": "Do you like tests?",
+            "scores": [
+                [
+                    "yes",
+                    2
+                ],
+                [
+                    "maybe",
+                    1
+                ],
+                [
+                    "no",
+                    0
+                ]
+            ]
+        },
+        "question1": {
+            "sequence": 2,
+            "name": "How do you spell the fruit that made Mr. Newton say ouch?",
+            "scores": [
+                [
+                    "apple",
+                    2
+                ]
+            ]
+        },
+        "question121": {
+            "sequence": 1,
+            "name": "Which company manufactures the most tyres?",
+            "scores": [
+                [
+                    "lego",
+                    2
+                ],
+                [
+                    "playmobil",
+                    -10
+                ]
+            ]
+        },
+        "question2": {
+            "sequence": 4,
+            "name": "What comes before two?",
+            "scores": [
+                [
+                    "one",
+                    2
+                ],
+                [
+                    "lunch",
+                    -2
+                ]
+            ]
+        },
+        "question7": {
+            "sequence": 3,
+            "name": "That's when good neighbours become good ______?",
+            "scores": [
+                [
+                    "friends",
+                    1
+                ]
+            ]
+        },
+        "question23": {
+            "sequence": 5,
+            "name": "What Way do you learn on Laracasts?",
+            "scores": [
+                [
+                    "jeffrey",
+                    2
+                ],
+                [
+                    "right",
+                    1
+                ],
+                [
+                    "wrong",
+                    -10
+                ]
+            ]
+        }
+    }
+}
+
+

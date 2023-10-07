@@ -23,11 +23,11 @@ return response()->json($quizData);
 
     public function readQuizJson()
     {
-        // Define the path to your quiz.json file
         $filePath = storage_path('app/quiz.json');
 
         // Check if the file exists
         if (File::exists($filePath)) {
+
             // Read the contents of the JSON file
             $jsonContents = File::get($filePath);
 
@@ -36,10 +36,8 @@ return response()->json($quizData);
 
             return $quizData;
 
-            // Now, $quizData contains the parsed JSON data
-            // You can access quiz data like $quizData['quiz_name'] and $quizData['questions']
         } else {
-            // Handle the case where the file does not exist
+
             abort(404, 'Quiz data not found.');
         }
     }
@@ -54,19 +52,14 @@ return response()->json($quizData);
             $email = $request['email'];
             $score = $request['score'];
 
-            // You need to implement database storage here, e.g., using Eloquent
-            // Example:
             QuizResult::create([
                 'name' => $request['name'],
                 'email' => $request['email'],
                 'score' => $request['score'],
             ]);
 
-            // Redirect to high scores page
             return 'Score was successfuly stored.';
         } catch (QueryException $e) {
-            // Log the error for debugging purposes
-            //Log::error('Error storing quiz result: ' . $e->getMessage());
 
             // Return a 500 internal server error response
             return response()->json(['error' => 'An error occurred while storing the quiz result.'], 500);
@@ -75,11 +68,7 @@ return response()->json($quizData);
 
     public function highScores()
     {
-        // Retrieve high scores from the database and pass them to the Blade view
-        // Example:
         $highScores = QuizResult::orderBy('score', 'desc')->limit(10)->get();
-
-        // You need to retrieve high scores from the database here
 
         return $highScores;
     }
