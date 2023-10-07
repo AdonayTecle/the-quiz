@@ -3,11 +3,11 @@ import Question from './Question';
 import QuizResults from './QuizResults';
 import '../../css/app.css';
 
-const Quiz = ({ quizData }) => {
+const Quiz = ({ quizData, navigate }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState(Array(Object.keys(quizData.questions).length).fill(null));
   const [showResults, setShowResults] = useState(false);
-
+  
   const questions = Object.values(quizData.questions);
 
   const handleAnswer = (answerIndex) => {
@@ -38,7 +38,7 @@ const Quiz = ({ quizData }) => {
       <h1 className="quiz-name">{quizData.quiz_name}</h1>
 
       {showResults ? (
-        <QuizResults questions={questions} userAnswers={userAnswers} />
+        <QuizResults questions={questions} userAnswers={userAnswers} navigate={navigate} />
       ) : (
         <div>
           <Question

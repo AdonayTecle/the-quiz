@@ -46,6 +46,7 @@ class QuizResults extends Component {
       .then((response) => {
         console.log('Score submitted successfully:', response.data);
         this.setState({ submitted: true });
+        this.props.navigate('/high-scores');
         
       })
       .catch((error) => {
