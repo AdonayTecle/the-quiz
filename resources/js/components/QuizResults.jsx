@@ -9,6 +9,8 @@ class QuizResults extends Component {
       name: '',
       email: '',
       submitted: false,
+      nameError: '',
+      emailError: '',
     };
   }
 
@@ -21,9 +23,21 @@ class QuizResults extends Component {
   };
 
   handleSubmit = () => {
+    const { name, email } = this.state;
+
+    if (name.trim() === '') {
+      this.setState({ nameError: 'Name is required' });
+      return;
+    }
+
+    if (email.trim() === '') {
+      this.setState({ emailError: 'Email is required' });
+      return;
+    }
+
     const dataToSend = {
-      name: this.state.name,
-      email: this.state.email,
+      name,
+      email,
       score: this.calculateScore(this.props.questions, this.props.userAnswers),
     };
 
@@ -32,12 +46,11 @@ class QuizResults extends Component {
       .then((response) => {
         console.log('Score submitted successfully:', response.data);
         this.setState({ submitted: true });
+        
       })
       .catch((error) => {
         console.error('Error submitting score:', error);
       });
-
-    this.setState({ submitted: true });
   };
 
   render() {
@@ -55,20 +68,33 @@ class QuizResults extends Component {
         ) : (
           <div>
             <div className="input-group">
-              <input
-                type="text"
-                placeholder="Name"
-                value={this.state.name}
-                onChange={this.handleNameChange}
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                value={this.state.email}
-                onChange={this.handleEmailChange}
-              />
-            </div>
-            <button onClick={this.handleSubmit}>Submit</button>
+      <div>
+        <input
+          type="text"
+          placeholder="Name"
+          value={this.state.name}
+          onChange={this.handleNameChange}
+        />
+      </div>
+      <div>
+        <span className="error-message">{this.state.nameError}</span>
+      </div>
+    </div>
+    <div className="input-group">
+      <div>
+        <input
+          type="email"
+          placeholder="Email"
+          value={this.state.email}
+          onChange={this.handleEmailChange}
+        />
+      </div>
+      <div>
+        <span className="error-message">{this.state.emailError}</span>
+      </div>
+    </div>
+    <button onClick={this.handleSubmit}>Submit</button>
+
           </div>
         )}
       </div>
