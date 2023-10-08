@@ -10,16 +10,11 @@ class QuizController extends Controller
 {
     public function index()
     {
-        // Read quiz questions from quiz.json and pass them to the Blade view
-        /*$quizData = json_decode(file_get_contents(public_path('quiz.json')), true);
+        $quizData = $this->readQuizJson();
 
-        return view('quiz', compact('quizData'));
-*/
-$quizData = $this->readQuizJson();
-return response()->json($quizData);
+        return response()->json($quizData);
     }
 
-    
 
     public function readQuizJson()
     {
@@ -43,32 +38,40 @@ return response()->json($quizData);
     }
 
 
-    public function submitScore(Request $request)
-    {
-        
-        try {
+    public function submitScore(Request $request){
 
-            $name = $request['name'];
-            $email = $request['email'];
-            $score = $request['score'];
+    //validation rules
+    $rules = [
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'score' => 'required|integer',
+    ];
 
-            QuizResult::create([
-                'name' => $request['name'],
-                'email' => $request['email'],
-                'score' => $request['score'],
-            ]);
+    //validate the request data
+    $validatedData = $request->validate($rules);
 
-            return 'Score was successfuly stored.';
-        } catch (QueryException $e) {
+    try {
+        $name = $validatedData['name'];
+        $email = $validatedData['email'];
+        $score = $validatedData['score'];
 
-            // Return a 500 internal server error response
-            return response()->json(['error' => 'An error occurred while storing the quiz result.'], 500);
-        }
+        QuizResult::create([
+            'name' => $name,
+            'email' => $email,
+            'score' => $score,
+        ]);
+
+        return 'Score was successfully stored.';
+    } catch (QueryException $e) {
+        // Return a 500 internal server error response
+        return response()->json(['error' => 'An error occurred while storing the quiz result.'], 500);
     }
+}
 
     public function highScores()
     {
-        $highScores = QuizResult::orderBy('score', 'desc')->limit(10)->get();
+        //retrieve quiz results in descending order
+        $highScores = QuizResult::orderBy('score', 'desc')->get();
 
         return $highScores;
     }

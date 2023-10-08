@@ -31,3 +31,5 @@ run the following command on a terminal and don't close the terminal:
 open a new terminal and run the following command:
 
     php artisan serve
+
+you can find the quiz.json file in \the-quiz\storage\app\quiz.json

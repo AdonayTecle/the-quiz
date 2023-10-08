@@ -17,14 +17,25 @@ function HighScores() {
 
   return (
     <div>
-      <h1>High Scores</h1>
-      <ul>
-        {highScores.map((score, index) => (
-          <li key={index}>
-            {score.name}: {score.score}
-          </li>
-        ))}
-      </ul>
+      <table>
+      <caption>High Scores</caption>
+        <tr>
+          <th>Name</th>
+          <th>Score</th>
+      </tr>
+        {
+        highScores.length > 0 ? (
+          highScores.map((score, index) => (
+            <tr>
+            <td key={index}>{score.name}</td>
+            <td>{score.score}</td>
+            </tr>
+          ))
+          ):(
+            <p>No scores to show.</p>
+          )
+        } 
+        </table>
     </div>
   );
 }

@@ -25,6 +25,9 @@ class QuizResults extends Component {
   handleSubmit = () => {
     const { name, email } = this.state;
 
+      //email validation regex pattern
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
     if (name.trim() === '') {
       this.setState({ nameError: 'Name is required' });
       return;
@@ -35,21 +38,30 @@ class QuizResults extends Component {
       return;
     }
 
+    if (!email.match(emailPattern)) {
+      this.setState({ emailError: 'Invalid email' });
+      return;
+    }
+
     const dataToSend = {
       name,
       email,
       score: this.calculateScore(this.props.questions, this.props.userAnswers),
     };
 
+    //send a POST request to submit the score
     axios
       .post('/api/submit-score', dataToSend)
       .then((response) => {
         console.log('Score submitted successfully:', response.data);
         this.setState({ submitted: true });
+        
+        //redirect to high-scores route
         this.props.navigate('/high-scores');
         
       })
       .catch((error) => {
+        alert('There was a problem submitting the score');
         console.error('Error submitting score:', error);
       });
   };
@@ -113,14 +125,30 @@ class QuizResults extends Component {
   }
 
   getResultMessage(score, questions) {
-    if (score === questions.length) {
+
+    let totalHighestScores = 0;
+
+    questions.forEach(item => {
+    let highestScore = -Infinity;
+  
+    item.scores.forEach(score => {
+      const scoreValue = score[1];
+      if (scoreValue > highestScore) {
+        highestScore = scoreValue;
+      }
+    });
+
+    totalHighestScores += highestScore;
+  });
+
+    if (score === totalHighestScores) {
       return 'Great job!';
-    } else if (score >= questions.length * 0.75) {
-      return 'You did alright.';
-    } else if (score >= questions.length * 0.5) {
+    } else if (score >= totalHighestScores * 0.75) {
+      return 'You did ok.';
+    } else if (score >= totalHighestScores * 0.5) {
       return 'Better luck next time.';
     } else {
-      return 'Maybe you should try a little harder.';
+      return 'Today was not your day.';
     }
   }
 }
